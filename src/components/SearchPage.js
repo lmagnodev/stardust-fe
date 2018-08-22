@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Header from './Header1';
-import SearchNav from './SearchNav1';
+import Header from './Header';
+import SearchNav from './SearchNav';
 
 
 class SearchPage extends Component {
