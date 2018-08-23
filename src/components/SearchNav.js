@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
+import { NasaImageClient } from '../utils/NasaClient';
 
 class SearchNav extends Component {
   constructor(props) {
@@ -17,6 +18,10 @@ class SearchNav extends Component {
     this.setState({
       [name]: event.target.value,
     });
+  };
+
+  handleSubmit = () => {
+    NasaImageClient.searchImage(this.state.searchQuery);
   };
 
   render() {
@@ -34,6 +39,7 @@ class SearchNav extends Component {
           </Grid>
           <Grid item sm={4} xs={12}>
             <Button 
+              onClick={ this.handleSubmit }
               variant="outlined" 
               color="primary"
               size="large"
