@@ -4,8 +4,8 @@ body {
 }
 
 .header {
-  //background-image: linear-gradient(to bottom, #2E131A, #A85067);
-  background-color: #155881;
+  background-image: url('../images/stardust-background.jpg');
+  background-color: transparent;
   height: 60px;
   padding: 20px;
   color: white;
@@ -29,7 +29,7 @@ body {
 }
 
 .header {
-  font-family: 'Homemade Apple', cursive;
+  font-family: 'Open Sans', sans-serif;
   .title {
     font-size: 30px;
   }

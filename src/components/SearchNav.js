@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import { NasaImageClient } from '../utils/NasaClient';
+import { 
+  searchHasErrored, 
+  searchIsLoading, 
+  searchDataSuccess 
+} from '../redux/actions/search'
 
-class SearchNav extends Component {
+export class SearchNav extends Component {
   constructor(props) {
     super(props);
 
@@ -21,7 +27,22 @@ class SearchNav extends Component {
   };
 
   handleSubmit = () => {
-    NasaImageClient.searchImage(this.state.searchQuery);
+    const failureCallback = () => {
+      this.props.setLoading(false);
+      this.props.setHasErrored(true);
+    };
+
+    const successCallback = (images) => {
+      this.props.setLoading(false);
+      this.props.setImages(images);
+    };
+
+    this.props.setLoading(true);
+    NasaImageClient.searchImage(
+      this.state.searchQuery, 
+      successCallback, 
+      failureCallback
+    );
   };
 
   render() {
@@ -53,4 +74,20 @@ class SearchNav extends Component {
   }
 }
 
-export default SearchNav;
+const mapStateToProps = (state) => {
+  return {
+      images: state.images,
+      hasErrored: state.searchHasErrored,
+      isLoading: state.searchIsLoading
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+      setLoading: (loading) => dispatch(searchIsLoading(loading)),
+      setHasErrored: (errored) => dispatch(searchHasErrored(errored)),
+      setImages: (images) => dispatch(searchDataSuccess(images))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchNav);
