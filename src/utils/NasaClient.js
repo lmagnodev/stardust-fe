@@ -1,12 +1,14 @@
 import axios from 'axios';
 import { NASA_IMAGE_URL } from './constants';
+import ImageCollection from '../models/ImageCollection';
 
 export const NasaImageClient = {
-  searchImage : (searchStr, successCallback, failCallback) => {
-   axios.get(`${NASA_IMAGE_URL}/search?q=${encodeURIComponent(searchStr)}`)
+  searchImage : (searchStr, successCallback, failCallback, page = 1) => {
+   axios.get(`${NASA_IMAGE_URL}/search?q=${encodeURIComponent(searchStr)}&page=${page}`)
    .then(function (response) {
      console.log(response);
-     successCallback(response);
+     const imageCollection = new ImageCollection(response);
+     successCallback(imageCollection);
    })
    .catch(function (error) {
      console.log(error);

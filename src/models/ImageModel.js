@@ -1,9 +1,15 @@
 export default class ImageModel {
-  constructor(data) {
-    this.title;
-    this.keywords;
-    this.href;
-    this.imageCollectionUrl;
-    this.thumbUrl;
+  constructor(
+    title,
+    description,
+    keywords,
+    imageCollectionUrl,
+    thumbUrl
+  ) {
+    this.title = title;
+    this.description = description;
+    this.keywords = keywords;
+    this.imageCollectionUrl = imageCollectionUrl;
+    this.thumbUrl = thumbUrl;
   }
 }
