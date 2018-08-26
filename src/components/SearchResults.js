@@ -23,8 +23,9 @@ const styles = theme => ({
     height: 450,
   },
   singleImage: {
-    width: 500,
+    width: 'auto',
     height: 'auto',
+    overflow: 'hidden'
   }
 });
 
@@ -61,15 +62,14 @@ class SearchResults extends Component {
       <div className={classes.root}>
         <div className={classes.singleImage}>
           <img src={selectedImage.thumbUrl} alt={selectedImage.title} className={classes.gridList}/>
-          <div>
+          <div className={classes.singleImage}>
             <div onClick={ this.setSelectedImage(null) } align="center">[X] Close</div>
             <Typography variant="headline" gutterBottom>
               { selectedImage.title }
             </Typography>
             <Typography variant="caption" gutterBottom>
               { selectedImage.description }
-            </Typography>
-            
+            </Typography>     
           </div>
         </div>
       </div>
