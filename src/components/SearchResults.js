@@ -7,6 +7,7 @@ import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import ListSubheader from '@material-ui/core/ListSubheader';
+import Pagination from './Pagination';
 
 const styles = theme => ({
   root: {
@@ -45,11 +46,15 @@ class SearchResults extends Component {
               <img src={image.thumbUrl} alt={image.title} />
               <GridListTileBar
                 title={image.title}
-                subtitle={<span>by: {image.title}</span>}
+                subtitle={<span>{image.description}</span>}
               />
             </GridListTile>
           ))}
         </GridList>
+        <div className={classes.gridList}>
+          <Pagination />
+        </div>
+        
       </div>
     );
   }
@@ -57,10 +62,10 @@ class SearchResults extends Component {
 
 const mapStateToProps = (state) => {
   return {
-      images: state.images.imageCollection,
-      isLoading: state.searchIsLoading,
-      searchStr: state.images.searchStr,
-      resultsCount: state.images.totalImages
+    images: state.images.imageCollection,
+    isLoading: state.searchIsLoading,
+    searchStr: state.images.searchStr,
+    resultsCount: state.images.totalImages
   };
 };
 

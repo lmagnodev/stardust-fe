@@ -26,9 +26,9 @@ export function searchDataSuccess(images) {
   };
 }
 
-export function searchDataFetch(searchStr) {
+export function searchDataFetch(searchStr, page) {
   return {
       type: SEARCH_DATA_FETCH,
-      searchStr
+      search: { searchStr, page }
   };
 }

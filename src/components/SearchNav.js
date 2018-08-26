@@ -18,7 +18,8 @@ export class SearchNav extends Component {
     super(props);
 
     this.state = {
-      searchQuery: ''
+      searchQuery: '',
+      page: 1
     };
   }
 
@@ -41,9 +42,10 @@ export class SearchNav extends Component {
       };
 
       NasaImageClient.searchImage(
-        state.searchQuery, 
+        props.search.searchStr, 
         successCallback, 
-        failureCallback
+        failureCallback,
+        props.search.page
       );
     }
 
@@ -52,7 +54,7 @@ export class SearchNav extends Component {
 
   handleSubmit = () => {
     this.props.setLoading(true);
-    this.props.fetchImages(this.state.searchQuery);
+    this.props.fetchImages(this.state.searchQuery, this.state.page);
   }
   
   render() {
@@ -86,18 +88,19 @@ export class SearchNav extends Component {
 
 const mapStateToProps = (state) => {
   return {
-      images: state.images,
-      hasErrored: state.searchHasErrored,
-      isLoading: state.searchIsLoading
+    images: state.images,
+    hasErrored: state.searchHasErrored,
+    isLoading: state.searchIsLoading,
+    search: state.search
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-      setLoading: (loading) => dispatch(searchIsLoading(loading)),
-      setHasErrored: (errored) => dispatch(searchHasErrored(errored)),
-      setImages: (images) => dispatch(searchDataSuccess(images)),
-      fetchImages: (searchStr) => dispatch(searchDataFetch(searchStr))
+    setLoading: (loading) => dispatch(searchIsLoading(loading)),
+    setHasErrored: (errored) => dispatch(searchHasErrored(errored)),
+    setImages: (images) => dispatch(searchDataSuccess(images)),
+    fetchImages: (searchStr, page) => dispatch(searchDataFetch(searchStr, page))
   };
 };
 

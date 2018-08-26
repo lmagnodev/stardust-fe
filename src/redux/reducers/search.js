@@ -33,7 +33,7 @@ export function images(state = [], action) {
 export function search(state = [], action) {
   switch (action.type) {
     case SEARCH_DATA_FETCH:
-      return action.searchStr;
+      return action.search;
     default:
       return state;
   }
