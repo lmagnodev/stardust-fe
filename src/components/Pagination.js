@@ -1,39 +1,11 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { withStyles } from '@material-ui/core/styles';
-import GridList from '@material-ui/core/GridList';
-import GridListTile from '@material-ui/core/GridListTile';
-import GridListTileBar from '@material-ui/core/GridListTileBar';
-import ListSubheader from '@material-ui/core/ListSubheader';
 
-const styles = theme => ({
-  root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
-    overflow: 'hidden',
-    backgroundColor: theme.palette.background.paper,
-  },
-  gridList: {
-    width: 500,
-    height: 450,
-  }
-});
-
-class SearchResults extends Component {
-  static propTypes = {
-    classes: PropTypes.object.isRequired,
-  };
-
+class Pagination extends Component {
+  
   render() {
-    const { classes, images } = this.props;
-
-    if (!images) {
-      return null;
-    }
-
+    
     return (
       <div className={classes.root}>
         <GridList cellHeight={180} className={classes.gridList}>
@@ -64,4 +36,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default withStyles(styles)(connect(mapStateToProps)(SearchResults));
+export default connect(mapStateToProps)(SearchResults);

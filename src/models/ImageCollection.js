@@ -2,9 +2,10 @@ import ImageModel from './ImageModel';
 
 export default class ImageCollection {
 
-  constructor(unformattedData) {
+  constructor(searchStr, unformattedData) {
     this.imageCollection = [];
     this.totalImages = 0;
+    this.searchStr =  searchStr;
     
     if (
       unformattedData.data && 
@@ -28,13 +29,5 @@ export default class ImageCollection {
 
       this.totalImages = unformattedData.data.collection.metadata.total_hits;
     }
-  }
-
-  getImages() {
-    return this.imageCollection;
-  }
-
-  getTotalImages() {
-    return this.totalImages;
   }
 }

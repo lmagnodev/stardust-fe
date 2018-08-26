@@ -7,7 +7,7 @@ export const NasaImageClient = {
    axios.get(`${NASA_IMAGE_URL}/search?q=${encodeURIComponent(searchStr)}&page=${page}`)
    .then(function (response) {
      console.log(response);
-     const imageCollection = new ImageCollection(response);
+     const imageCollection = new ImageCollection(searchStr, response);
      successCallback(imageCollection);
    })
    .catch(function (error) {

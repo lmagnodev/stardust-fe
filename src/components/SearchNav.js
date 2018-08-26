@@ -9,7 +9,8 @@ import { NasaImageClient } from '../utils/NasaClient';
 import { 
   searchHasErrored, 
   searchIsLoading, 
-  searchDataSuccess 
+  searchDataSuccess,
+  searchDataFetch
 } from '../redux/actions/search'
 
 export class SearchNav extends Component {
@@ -27,25 +28,33 @@ export class SearchNav extends Component {
     });
   };
 
+  static getDerivedStateFromProps(props, state) {
+    if(props.isLoading) {
+      const failureCallback = () => {
+        props.setLoading(false);
+        props.setHasErrored(true);
+      };
+  
+      const successCallback = (images) => {
+        props.setLoading(false);
+        props.setImages(images);
+      };
+
+      NasaImageClient.searchImage(
+        state.searchQuery, 
+        successCallback, 
+        failureCallback
+      );
+    }
+
+    return null;
+  }
+
   handleSubmit = () => {
-    const failureCallback = () => {
-      this.props.setLoading(false);
-      this.props.setHasErrored(true);
-    };
-
-    const successCallback = (images) => {
-      this.props.setLoading(false);
-      this.props.setImages(images);
-    };
-
     this.props.setLoading(true);
-    NasaImageClient.searchImage(
-      this.state.searchQuery, 
-      successCallback, 
-      failureCallback
-    );
-  };
-
+    this.props.fetchImages(this.state.searchQuery);
+  }
+  
   render() {
     return (
       <div className="search-nav" style={{ padding: 5 }}>
@@ -87,7 +96,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
       setLoading: (loading) => dispatch(searchIsLoading(loading)),
       setHasErrored: (errored) => dispatch(searchHasErrored(errored)),
-      setImages: (images) => dispatch(searchDataSuccess(images))
+      setImages: (images) => dispatch(searchDataSuccess(images)),
+      fetchImages: (searchStr) => dispatch(searchDataFetch(searchStr))
   };
 };
 
