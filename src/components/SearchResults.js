@@ -8,7 +8,6 @@ import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import Typography from '@material-ui/core/Typography';
-import Pagination from './Pagination';
 
 const styles = theme => ({
   root: {
@@ -103,9 +102,6 @@ class SearchResults extends Component {
             </GridListTile>
           ))}
         </GridList>
-        <div className={classes.gridList}>
-          <Pagination />
-        </div>
       </div>
     );
   }

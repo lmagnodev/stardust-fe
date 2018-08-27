@@ -34,3 +34,23 @@ body {
     font-size: 30px;
   }
 }
+
+.pagination {
+  padding-top: 10px;
+  color:rgba(63, 81, 181, 0.5);
+  width: auto;
+  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  .page {
+    cursor: pointer;
+    float: left;
+    width: 15px;
+  }
+  .active {
+    font-weight: bolder;
+    cursor: default;
+    color: grey;
+  }
+}

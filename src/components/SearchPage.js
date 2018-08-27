@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Header from './Header';
 import SearchNav from './SearchNav';
 import SearchResults from './SearchResults';
-
+import Pagination from './Pagination';
 
 class SearchPage extends Component {
   render() {
@@ -11,6 +11,7 @@ class SearchPage extends Component {
       <Header />
       <SearchNav />
       <SearchResults />
+      <Pagination />
     </div>
     );
   }
