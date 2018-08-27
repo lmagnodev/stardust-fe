@@ -61,7 +61,7 @@ class Pagination extends Component {
 
   render() {
     if (!this.props.resultsCount) {
-      return <div>Hello</div>;
+      return null;
     }
 
     return (

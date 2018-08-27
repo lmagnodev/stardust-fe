@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { withStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
@@ -58,20 +59,20 @@ class SearchResults extends Component {
     const selectedImage = images[this.state.selectedImage];
 
     return (
-      <div className={classes.root}>
-        <div className={classes.singleImage}>
-          <img src={selectedImage.thumbUrl} alt={selectedImage.title} className={classes.gridList}/>
-          <div className={classes.singleImage}>
-            <div onClick={ this.setSelectedImage(null) } align="center">[X] Close</div>
-            <Typography variant="headline" gutterBottom>
-              { selectedImage.title }
-            </Typography>
-            <Typography variant="caption" gutterBottom>
-              { selectedImage.description }
-            </Typography>     
-          </div>
-        </div>
-      </div>
+      <Grid container spacing={24}>
+        <Grid item lg={4} md={3} xs={0}></Grid>
+        <Grid item lg={4} md={6} xs={12}>
+          <img src={selectedImage.thumbUrl} alt={selectedImage.title}/>
+          <div onClick={ this.setSelectedImage(null) } align="center">[X] Close</div>
+          <Typography variant="headline" gutterBottom>
+            { selectedImage.title }
+          </Typography>
+          <Typography variant="caption" gutterBottom>
+            { selectedImage.description }
+          </Typography>  
+        </Grid>
+        <Grid item lg={4} md={3} xs={0} ></Grid>
+      </Grid>
     );
   }
 
