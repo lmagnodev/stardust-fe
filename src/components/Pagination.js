@@ -41,8 +41,9 @@ class Pagination extends Component {
 
   goToPage = (page) => {
     return () => {
+      const { searchStr, advancedSearch } = this.props.search;
       this.props.setLoading(true);
-      this.props.fetchImages(this.props.search.searchStr, page);
+      this.props.fetchImages(searchStr, page, advancedSearch);
     }
   }
   
@@ -87,7 +88,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchImages: (searchStr, page) => dispatch(searchDataFetch(searchStr, page)),
+    fetchImages: (searchStr, page, advancedSearch) => dispatch(searchDataFetch(searchStr, page, advancedSearch)),
     setLoading: (loading) => dispatch(searchIsLoading(loading))
   };
 };
