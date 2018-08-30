@@ -8,49 +8,57 @@ import {
 } from '../redux/actions/search'
 
 const MAX_PAGINATION_DISPLAY = 10;
-const MAX_COUNT_PER_PAGE = 100;
+const MAX_RESULTS_PER_PAGE = 100;
 
 class Pagination extends Component {
 
   getStartPage() {
-    const { search } = this.props;
+    let endPage = this.getEndPage();
+    let startPage = endPage - MAX_PAGINATION_DISPLAY + 1;
 
-    if (search.page > MAX_PAGINATION_DISPLAY) {
-      return search.page - MAX_PAGINATION_DISPLAY;
+    if (startPage <= 0) {
+      return 1;
     }
 
-    return 1;
-  }
-
-  getTotalPages() {
-    const { totalImages } = this.props.resultsCount;
-    
-    return Math.ceil(totalImages / MAX_COUNT_PER_PAGE);
+    return startPage;
   }
 
   getEndPage() {
-    let endPage = this.getStartPage() + MAX_PAGINATION_DISPLAY;
+    const { page } = this.props.search;
+    let endPage = page + (Math.ceil(MAX_PAGINATION_DISPLAY / 2) - 1);
     let totalPages = this.getTotalPages();
+    
+    if (endPage < MAX_PAGINATION_DISPLAY) {
+      return MAX_PAGINATION_DISPLAY;
+    }
 
     if (endPage > totalPages) {
-      return totalPages;
+      endPage = totalPages;
     }
 
     return endPage;
   }
 
+  getTotalPages() {
+    const totalImages  = this.props.resultsCount;
+    
+    return Math.ceil(totalImages / MAX_RESULTS_PER_PAGE);
+  }
+
   goToPage = (page) => {
     return () => {
+      const { setLoading, fetchImages } = this.props;
       const { searchStr, advancedSearch } = this.props.search;
-      this.props.setLoading(true);
-      this.props.fetchImages(searchStr, page, advancedSearch);
+
+      setLoading(true);
+      fetchImages(searchStr, page, advancedSearch);
     }
   }
   
   getPages(startPage, endPage) {
     let pages = [];
     
-    for(let i = startPage; i < endPage; i++) {
+    for(let i = startPage; i <= endPage; i++) {
       let pageClass = (i === this.props.search.page) ? 'page active' : 'page';
       pages.push(
         <div className={ pageClass } onClick={ this.goToPage(i) }>{ i }</div>
